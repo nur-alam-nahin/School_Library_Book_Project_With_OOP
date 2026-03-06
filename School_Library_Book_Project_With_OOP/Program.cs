@@ -24,50 +24,58 @@ namespace School_Library_Book_Project_With_OOP
                 Console.WriteLine("3. Exit");
                 Console.Write("Chose num = ");
                 num = Convert.ToInt32(Console.ReadLine());
-
-                switch (num)
+                if(num > 0 && num < 3)
                 {
-                    case 1:
-                        Console.Write("Book Name = ");
-                        string bookName = Console.ReadLine();
 
-                        Console.Write("Category (Printed/Digital): ");
-                        string category = Console.ReadLine();
+                    switch (num)
+                    {
+                        case 1:
+                            Console.Write("Book Name = ");
+                            string bookName = Console.ReadLine();
 
-                        Console.Write("Price = ");
-                        double price = Convert.ToDouble(Console.ReadLine());
+                            Console.Write("Category (Printed/Digital): ");
+                            string category = Console.ReadLine();
 
-                        Entites.BookCategory BookCategory = new Entites.BookCategory(category);
-                        Entites.Book newBook = new Entites.Book(bookName, price, BookCategory);
+                            Console.Write("Price = ");
+                            double price = Convert.ToDouble(Console.ReadLine());
 
-                        book.Add(newBook);
-                        break;
+                            Entites.BookCategory BookCategory = new Entites.BookCategory(category);
+                            Entites.Book newBook = new Entites.Book(bookName, price, BookCategory);
+
+                            book.Add(newBook);
+                            break;
 
 
-                    case 2:
-                        foreach(var b in book)
-                        {
-                            Services.PriceCalculator calculator;
-                            if(b.getCategory().getCategoryName() == "Printed")
+                        case 2:
+                            foreach(var b in book)
                             {
-                                calculator = new Services.PrintedBookCalculator(b);
-                            }
-                            else
-                            {
-                                calculator = new Services.DigitalBookCalculator(b);
-                            }
+                                Services.PriceCalculator calculator;
+                                if(b.getCategory().getCategoryName() == "Printed")
+                                {
+                                    calculator = new Services.PrintedBookCalculator(b);
+                                }
+                                else
+                                {
+                                    calculator = new Services.DigitalBookCalculator(b);
+                                }
 
-                            Console.WriteLine("Book = " + b.getTitle());
-                            Console.WriteLine("Category = " + b.getCategory().getCategoryName());
-                            Console.WriteLine("Price = " + b.getPrice());
-                            Console.WriteLine("Final price = " + calculator.calculateFinalPrice());
-                            Console.WriteLine();
-                        }
-                        break;
+                                Console.WriteLine("Book = " + b.getTitle());
+                                Console.WriteLine("Category = " + b.getCategory().getCategoryName());
+                                Console.WriteLine("Price = " + b.getPrice());
+                                Console.WriteLine("Final price = " + calculator.calculateFinalPrice());
+                                Console.WriteLine();
+                            }
+                            break;
+                    }
+                }
+                else
+                {
+                    if(num == 3)
+                    Environment.Exit(3);
                 }
 
 
-            } while (num !=  6);
+            } while (true);
 
 
 
@@ -97,7 +105,7 @@ namespace School_Library_Book_Project_With_OOP
 
 
 
-            Console.ReadKey();
+           
 
         }
     }
